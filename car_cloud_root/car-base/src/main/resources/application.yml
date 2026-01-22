@@ -1,0 +1,24 @@
+# =====================================================
+# Car Cloud - Base 基础业务服务
+# 主配置文件 - 公共配置
+# =====================================================
+
+spring:
+  application:
+    name: car-base
+  # 默认激活开发环境
+  profiles:
+    active: ${SPRING_PROFILES_ACTIVE:dev}
+
+# MyBatis-Plus 配置（各环境通用）
+mybatis-plus:
+  mapper-locations: classpath:mapper/**/*.xml
+  configuration:
+    map-underscore-to-camel-case: true
+
+# 监控端点配置
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"

@@ -1,0 +1,27 @@
+# =====================================================
+# Car Cloud - Gateway 网关服务
+# 主配置文件 - 公共配置
+# =====================================================
+
+spring:
+  application:
+    name: car-gateway
+  # 默认激活开发环境
+  profiles:
+    active: ${SPRING_PROFILES_ACTIVE:dev}
+  cloud:
+    gateway:
+      discovery:
+        locator:
+          enabled: true # 开启从注册中心动态创建路由的功能
+          lower-case-service-id: true # 使用小写服务名
+      default-filters:
+        # 去除重复的 CORS 响应头
+        - DedupeResponseHeader=Access-Control-Allow-Origin Access-Control-Allow-Credentials Access-Control-Allow-Methods Access-Control-Allow-Headers, RETAIN_UNIQUE
+
+# 监控端点配置
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"

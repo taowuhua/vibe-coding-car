@@ -1,0 +1,29 @@
+# =====================================================
+# Car Cloud - Eureka 服务注册中心
+# 主配置文件 - 公共配置
+# =====================================================
+
+spring:
+  application:
+    name: car-eureka
+  # 默认激活开发环境，可通过 --spring.profiles.active=prod 切换
+  profiles:
+    active: ${SPRING_PROFILES_ACTIVE:dev}
+
+# Eureka 服务端基础配置（各环境通用）
+eureka:
+  client:
+    register-with-eureka: false
+    fetch-registry: false
+  server:
+    # 关闭自我保护模式（开发测试环境推荐）
+    enable-self-preservation: false
+    # 服务剔除间隔时间（毫秒）
+    eviction-interval-timer-in-ms: 5000
+
+# 监控端点配置
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"

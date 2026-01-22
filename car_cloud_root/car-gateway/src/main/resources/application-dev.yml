@@ -1,0 +1,37 @@
+# =====================================================
+# Car Cloud - Gateway 网关服务
+# 开发环境配置 (dev)
+# =====================================================
+
+server:
+  port: 8888
+
+spring:
+  cloud:
+    gateway:
+      default-filters:
+        - name: RequestRateLimiter
+          args:
+            # 开发环境限流参数（较宽松）
+            redis-rate-limiter.replenishRate: 100
+            redis-rate-limiter.burstCapacity: 200
+            key-resolver: "#{@ipKeyResolver}"
+  data:
+    redis:
+      host: localhost
+      port: 6379
+      database: 0
+
+eureka:
+  instance:
+    prefer-ip-address: true
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka/
+
+# 日志配置
+logging:
+  level:
+    root: INFO
+    org.springframework.cloud.gateway: DEBUG
+    org.springframework.web: DEBUG

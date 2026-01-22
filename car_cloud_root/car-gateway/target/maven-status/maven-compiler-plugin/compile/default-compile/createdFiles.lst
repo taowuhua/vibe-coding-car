@@ -1,0 +1,3 @@
+com/car/gateway/config/GatewayConfiguration.class
+com/car/gateway/GatewayApplication.class
+com/car/gateway/config/GlobalCorsConfig.class

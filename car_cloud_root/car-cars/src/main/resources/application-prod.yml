@@ -1,0 +1,25 @@
+# =====================================================
+# Car Cloud - Cars 车辆服务
+# 生产环境配置 (prod)
+# =====================================================
+
+server:
+  port: 9002
+
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: ${DB_URL:jdbc:mysql://mysql.car.com:3306/car_cloud?useUnicode=true&characterEncoding=utf-8&useSSL=true}
+    username: ${DB_USERNAME:car_prod}
+    password: ${DB_PASSWORD:}
+
+eureka:
+  instance:
+    prefer-ip-address: true
+  client:
+    service-url:
+      defaultZone: ${EUREKA_SERVER:http://eureka.car.com:8761/eureka/}
+
+logging:
+  level:
+    root: WARN

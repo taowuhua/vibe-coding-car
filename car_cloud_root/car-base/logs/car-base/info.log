@@ -1,0 +1,74 @@
+2026-01-22 13:56:44.777 [main] INFO  com.car.base.BaseApplication - Starting BaseApplication using Java 17.0.13 with PID 33700 (/Users/taowuhua/Desktop/project/car_web/car_cloud_root/car-base/target/classes started by taowuhua in /Users/taowuhua/Desktop/project/car_web/car_cloud_root/car-base)
+2026-01-22 13:56:44.782 [main] INFO  com.car.base.BaseApplication - No active profile set, falling back to 1 default profile: "default"
+2026-01-22 13:56:46.031 [main] INFO  o.springframework.cloud.context.scope.GenericScope - BeanFactory id=b23ea0b8-2aa0-3d8c-81de-250f4f213f8a
+2026-01-22 13:56:46.347 [main] INFO  o.s.boot.web.embedded.tomcat.TomcatWebServer - Tomcat initialized with port 9001 (http)
+2026-01-22 13:56:46.355 [main] INFO  org.apache.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-9001"]
+2026-01-22 13:56:46.356 [main] INFO  org.apache.catalina.core.StandardService - Starting service [Tomcat]
+2026-01-22 13:56:46.356 [main] INFO  org.apache.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.34]
+2026-01-22 13:56:46.419 [main] INFO  o.a.c.core.ContainerBase.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2026-01-22 13:56:46.420 [main] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 1589 ms
+2026-01-22 13:56:47.090 [main] WARN  c.b.mybatisplus.core.injector.methods.Insert - [com.car.base.mapper.user.UserMapper.insert] Has been loaded by XML or SqlProvider or Mybatis's Annotation, so ignoring this injection for [class com.baomidou.mybatisplus.core.injector.methods.Insert]
+2026-01-22 13:56:47.199 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2026-01-22 13:56:47.401 [main] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@2c154508
+2026-01-22 13:56:47.402 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2026-01-22 13:56:47.719 [main] INFO  o.s.v.beanvalidation.OptionalValidatorFactoryBean - Failed to set up a Bean Validation provider: jakarta.validation.NoProviderFoundException: Unable to create a Configuration, because no Jakarta Bean Validation provider could be found. Add a provider like Hibernate Validator (RI) to your classpath.
+2026-01-22 13:56:48.220 [main] INFO  o.s.c.n.e.c.DiscoveryClientOptionalArgsConfiguration - Eureka HTTP Client uses RestTemplate.
+2026-01-22 13:56:48.251 [main] WARN  o.s.c.l.c.LoadBalancerCacheAutoConfiguration$LoadBalancerCaffeineWarnLogger - Spring Cloud LoadBalancer is currently working with the default cache. While this cache implementation is useful for development and tests, it's recommended to use Caffeine cache in production.You can switch to using Caffeine cache, by adding it and org.springframework.cache.caffeine.CaffeineCacheManager to the classpath.
+2026-01-22 13:56:48.256 [main] INFO  o.s.b.actuate.endpoint.web.EndpointLinksResolver - Exposing 17 endpoints beneath base path '/actuator'
+2026-01-22 13:56:48.316 [main] INFO  o.s.cloud.netflix.eureka.InstanceInfoFactory - Setting initial instance status as: STARTING
+2026-01-22 13:56:48.329 [main] INFO  com.netflix.discovery.DiscoveryClient - Initializing Eureka in region us-east-1
+2026-01-22 13:56:48.330 [main] INFO  c.n.d.shared.resolver.aws.ConfigClusterResolver - Resolving eureka endpoints via configuration
+2026-01-22 13:56:48.335 [main] INFO  com.netflix.discovery.DiscoveryClient - Disable delta property : false
+2026-01-22 13:56:48.335 [main] INFO  com.netflix.discovery.DiscoveryClient - Single vip registry refresh property : null
+2026-01-22 13:56:48.335 [main] INFO  com.netflix.discovery.DiscoveryClient - Force full registry fetch : false
+2026-01-22 13:56:48.335 [main] INFO  com.netflix.discovery.DiscoveryClient - Application is null : false
+2026-01-22 13:56:48.335 [main] INFO  com.netflix.discovery.DiscoveryClient - Registered Applications size is zero : true
+2026-01-22 13:56:48.335 [main] INFO  com.netflix.discovery.DiscoveryClient - Application version is -1: true
+2026-01-22 13:56:48.335 [main] INFO  com.netflix.discovery.DiscoveryClient - Getting all instance registry info from the eureka server
+2026-01-22 13:56:48.611 [main] INFO  com.netflix.discovery.DiscoveryClient - The response status is 200
+2026-01-22 13:56:48.612 [main] INFO  com.netflix.discovery.DiscoveryClient - Starting heartbeat executor: renew interval is: 30
+2026-01-22 13:56:48.613 [main] INFO  com.netflix.discovery.InstanceInfoReplicator - InstanceInfoReplicator onDemand update allowed rate per min is 4
+2026-01-22 13:56:48.614 [main] INFO  com.netflix.discovery.DiscoveryClient - Discovery Client initialized at timestamp 1769061408614 with initial instances count: 1
+2026-01-22 13:56:48.618 [main] INFO  o.s.c.n.e.serviceregistry.EurekaServiceRegistry - Registering application CAR-BASE with eureka with status UP
+2026-01-22 13:56:48.618 [main] INFO  com.netflix.discovery.DiscoveryClient - Saw local status change event StatusChangeEvent [timestamp=1769061408618, current=UP, previous=STARTING]
+2026-01-22 13:56:48.619 [DiscoveryClient-InstanceInfoReplicator-%d] INFO  com.netflix.discovery.DiscoveryClient - DiscoveryClient_CAR-BASE/10.128.92.120:car-base:9001: registering service...
+2026-01-22 13:56:48.621 [main] INFO  org.apache.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-9001"]
+2026-01-22 13:56:48.636 [main] INFO  o.s.boot.web.embedded.tomcat.TomcatWebServer - Tomcat started on port 9001 (http) with context path '/'
+2026-01-22 13:56:48.638 [main] INFO  o.s.c.n.e.s.EurekaAutoServiceRegistration - Updating port to 9001
+2026-01-22 13:56:48.665 [main] INFO  com.car.base.BaseApplication - Started BaseApplication in 4.441 seconds (process running for 4.893)
+2026-01-22 13:56:48.673 [DiscoveryClient-InstanceInfoReplicator-%d] INFO  com.netflix.discovery.DiscoveryClient - DiscoveryClient_CAR-BASE/10.128.92.120:car-base:9001 - registration status: 204
+2026-01-22 13:58:32.452 [http-nio-9001-exec-1] INFO  o.a.c.core.ContainerBase.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2026-01-22 13:58:32.456 [http-nio-9001-exec-1] INFO  org.springframework.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+2026-01-22 13:58:32.461 [http-nio-9001-exec-1] INFO  org.springframework.web.servlet.DispatcherServlet - Completed initialization in 5 ms
+2026-01-22 14:01:48.345 [AsyncResolver-bootstrap-executor-%d] INFO  c.n.d.shared.resolver.aws.ConfigClusterResolver - Resolving eureka endpoints via configuration
+2026-01-22 14:06:48.381 [AsyncResolver-bootstrap-executor-%d] INFO  c.n.d.shared.resolver.aws.ConfigClusterResolver - Resolving eureka endpoints via configuration
+2026-01-22 14:11:48.394 [AsyncResolver-bootstrap-executor-%d] INFO  c.n.d.shared.resolver.aws.ConfigClusterResolver - Resolving eureka endpoints via configuration
+2026-01-22 14:16:48.404 [AsyncResolver-bootstrap-executor-%d] INFO  c.n.d.shared.resolver.aws.ConfigClusterResolver - Resolving eureka endpoints via configuration
+2026-01-22 14:21:48.414 [AsyncResolver-bootstrap-executor-%d] INFO  c.n.d.shared.resolver.aws.ConfigClusterResolver - Resolving eureka endpoints via configuration
+2026-01-22 14:26:48.426 [AsyncResolver-bootstrap-executor-%d] INFO  c.n.d.shared.resolver.aws.ConfigClusterResolver - Resolving eureka endpoints via configuration
+2026-01-22 14:31:48.434 [AsyncResolver-bootstrap-executor-%d] INFO  c.n.d.shared.resolver.aws.ConfigClusterResolver - Resolving eureka endpoints via configuration
+2026-01-22 14:36:48.446 [AsyncResolver-bootstrap-executor-%d] INFO  c.n.d.shared.resolver.aws.ConfigClusterResolver - Resolving eureka endpoints via configuration
+2026-01-22 14:41:48.452 [AsyncResolver-bootstrap-executor-%d] INFO  c.n.d.shared.resolver.aws.ConfigClusterResolver - Resolving eureka endpoints via configuration
+2026-01-22 14:46:48.459 [AsyncResolver-bootstrap-executor-%d] INFO  c.n.d.shared.resolver.aws.ConfigClusterResolver - Resolving eureka endpoints via configuration
+2026-01-22 14:51:48.489 [AsyncResolver-bootstrap-executor-%d] INFO  c.n.d.shared.resolver.aws.ConfigClusterResolver - Resolving eureka endpoints via configuration
+2026-01-22 14:56:48.508 [AsyncResolver-bootstrap-executor-%d] INFO  c.n.d.shared.resolver.aws.ConfigClusterResolver - Resolving eureka endpoints via configuration
+2026-01-22 15:01:48.516 [AsyncResolver-bootstrap-executor-%d] INFO  c.n.d.shared.resolver.aws.ConfigClusterResolver - Resolving eureka endpoints via configuration
+2026-01-22 15:06:48.605 [AsyncResolver-bootstrap-executor-%d] INFO  c.n.d.shared.resolver.aws.ConfigClusterResolver - Resolving eureka endpoints via configuration
+2026-01-22 15:11:48.622 [AsyncResolver-bootstrap-executor-%d] INFO  c.n.d.shared.resolver.aws.ConfigClusterResolver - Resolving eureka endpoints via configuration
+2026-01-22 15:16:48.636 [AsyncResolver-bootstrap-executor-%d] INFO  c.n.d.shared.resolver.aws.ConfigClusterResolver - Resolving eureka endpoints via configuration
+2026-01-22 15:21:48.649 [AsyncResolver-bootstrap-executor-%d] INFO  c.n.d.shared.resolver.aws.ConfigClusterResolver - Resolving eureka endpoints via configuration
+2026-01-22 15:26:48.665 [AsyncResolver-bootstrap-executor-%d] INFO  c.n.d.shared.resolver.aws.ConfigClusterResolver - Resolving eureka endpoints via configuration
+2026-01-22 15:31:48.680 [AsyncResolver-bootstrap-executor-%d] INFO  c.n.d.shared.resolver.aws.ConfigClusterResolver - Resolving eureka endpoints via configuration
+2026-01-22 15:36:48.694 [AsyncResolver-bootstrap-executor-%d] INFO  c.n.d.shared.resolver.aws.ConfigClusterResolver - Resolving eureka endpoints via configuration
+2026-01-22 15:41:48.714 [AsyncResolver-bootstrap-executor-%d] INFO  c.n.d.shared.resolver.aws.ConfigClusterResolver - Resolving eureka endpoints via configuration
+2026-01-22 15:46:48.728 [AsyncResolver-bootstrap-executor-%d] INFO  c.n.d.shared.resolver.aws.ConfigClusterResolver - Resolving eureka endpoints via configuration
+2026-01-22 15:51:48.745 [AsyncResolver-bootstrap-executor-%d] INFO  c.n.d.shared.resolver.aws.ConfigClusterResolver - Resolving eureka endpoints via configuration
+2026-01-22 15:56:48.763 [AsyncResolver-bootstrap-executor-%d] INFO  c.n.d.shared.resolver.aws.ConfigClusterResolver - Resolving eureka endpoints via configuration
+2026-01-22 16:01:48.780 [AsyncResolver-bootstrap-executor-%d] INFO  c.n.d.shared.resolver.aws.ConfigClusterResolver - Resolving eureka endpoints via configuration
+2026-01-22 16:06:48.795 [AsyncResolver-bootstrap-executor-%d] INFO  c.n.d.shared.resolver.aws.ConfigClusterResolver - Resolving eureka endpoints via configuration
+2026-01-22 16:11:48.812 [AsyncResolver-bootstrap-executor-%d] INFO  c.n.d.shared.resolver.aws.ConfigClusterResolver - Resolving eureka endpoints via configuration
+2026-01-22 16:16:48.828 [AsyncResolver-bootstrap-executor-%d] INFO  c.n.d.shared.resolver.aws.ConfigClusterResolver - Resolving eureka endpoints via configuration
+2026-01-22 16:21:48.836 [AsyncResolver-bootstrap-executor-%d] INFO  c.n.d.shared.resolver.aws.ConfigClusterResolver - Resolving eureka endpoints via configuration
+2026-01-22 16:26:48.845 [AsyncResolver-bootstrap-executor-%d] INFO  c.n.d.shared.resolver.aws.ConfigClusterResolver - Resolving eureka endpoints via configuration
+2026-01-22 16:31:48.860 [AsyncResolver-bootstrap-executor-%d] INFO  c.n.d.shared.resolver.aws.ConfigClusterResolver - Resolving eureka endpoints via configuration
+2026-01-22 16:36:48.879 [AsyncResolver-bootstrap-executor-%d] INFO  c.n.d.shared.resolver.aws.ConfigClusterResolver - Resolving eureka endpoints via configuration

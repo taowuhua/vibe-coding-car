@@ -1,0 +1,25 @@
+# =====================================================
+# Car Cloud - Cars 车辆服务
+# 预生产环境配置 (preprod)
+# =====================================================
+
+server:
+  port: 9002
+
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://mysql-preprod.car.local:3306/car_cloud?useUnicode=true&characterEncoding=utf-8&useSSL=true
+    username: car_preprod
+    password: ${DB_PASSWORD:}
+
+eureka:
+  instance:
+    prefer-ip-address: true
+  client:
+    service-url:
+      defaultZone: http://eureka-preprod.car.local:8761/eureka/
+
+logging:
+  level:
+    root: WARN

@@ -1,0 +1,30 @@
+# =====================================================
+# Car Cloud - Eureka 服务注册中心
+# 生产环境配置 (prod)
+# =====================================================
+
+server:
+  port: 8761
+
+eureka:
+  instance:
+    # 生产环境主机名（请根据实际生产服务器地址修改）
+    hostname: eureka.car.com
+    # 使用 IP 地址注册
+    prefer-ip-address: true
+  client:
+    service-url:
+      # 生产环境建议配置多节点高可用
+      defaultZone: http://${eureka.instance.hostname}:${server.port}/eureka/
+  server:
+    # 生产环境开启自我保护
+    enable-self-preservation: true
+    # 生产环境可以适当延长剔除间隔
+    eviction-interval-timer-in-ms: 10000
+
+# 日志配置
+logging:
+  level:
+    root: WARN
+    com.netflix.eureka: WARN
+    com.netflix.discovery: WARN

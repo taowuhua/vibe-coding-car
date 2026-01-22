@@ -1,0 +1,39 @@
+# =====================================================
+# Car Cloud - Gateway 网关服务
+# 生产环境配置 (prod)
+# =====================================================
+
+server:
+  port: 8888
+
+spring:
+  cloud:
+    gateway:
+      default-filters:
+        - name: RequestRateLimiter
+          args:
+            # 生产环境限流参数（严格）
+            redis-rate-limiter.replenishRate: 10
+            redis-rate-limiter.burstCapacity: 20
+            key-resolver: "#{@ipKeyResolver}"
+  data:
+    redis:
+      # 生产环境 Redis 地址（请根据实际地址修改）
+      host: ${REDIS_HOST:redis.car.com}
+      port: ${REDIS_PORT:6379}
+      database: 0
+      password: ${REDIS_PASSWORD:}
+
+eureka:
+  instance:
+    prefer-ip-address: true
+  client:
+    service-url:
+      # 生产环境 Eureka 集群地址
+      defaultZone: ${EUREKA_SERVER:http://eureka.car.com:8761/eureka/}
+
+# 日志配置
+logging:
+  level:
+    root: WARN
+    org.springframework.cloud.gateway: WARN

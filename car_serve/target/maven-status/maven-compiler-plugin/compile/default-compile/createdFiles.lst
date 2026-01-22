@@ -1,0 +1,10 @@
+com/car/backend/service/impl/user/UserServiceImpl.class
+com/car/backend/biz/user/UserBizImpl.class
+com/car/backend/biz/impl/user/UserBiz.class
+com/car/backend/controller/UserController.class
+com/car/backend/mapper/user/UserMapper.class
+com/car/backend/CarBackendApplication.class
+com/car/backend/DatabaseStartupCheck.class
+com/car/backend/service/user/UserService.class
+com/car/backend/entity/user/User.class
+com/car/backend/common/utils/JwtUtil.class

@@ -1,0 +1,17 @@
+# =====================================================
+# Car Cloud - Cars 车辆服务
+# 主配置文件 - 公共配置
+# =====================================================
+
+spring:
+  application:
+    name: car-cars
+  profiles:
+    active: ${SPRING_PROFILES_ACTIVE:dev}
+
+# 监控端点配置
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"

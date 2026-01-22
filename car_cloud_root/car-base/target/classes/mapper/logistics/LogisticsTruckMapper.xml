@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.car.base.mapper.logistics.LogisticsTruckMapper">
+
+    <!-- 通用结果映射 -->
+    <resultMap id="BaseResultMap" type="com.car.base.entity.logistics.LogisticsTruck">
+        <id column="tid" property="tid"/>
+        <result column="truck_no" property="truckNo"/>
+        <result column="driver_name" property="driverName"/>
+        <result column="driver_phone" property="driverPhone"/>
+        <result column="truck_plate" property="truckPlate"/>
+        <result column="from_city" property="fromCity"/>
+        <result column="from_province" property="fromProvince"/>
+        <result column="to_city" property="toCity"/>
+        <result column="to_province" property="toProvince"/>
+        <result column="capacity" property="capacity"/>
+        <result column="available_count" property="availableCount"/>
+        <result column="departure_date" property="departureDate"/>
+        <result column="price_per_car" property="pricePerCar"/>
+        <result column="status" property="status"/>
+        <result column="memo" property="memo"/>
+        <result column="create_user" property="createUser"/>
+        <result column="create_date" property="createDate"/>
+        <result column="oper_user" property="operUser"/>
+        <result column="update_date" property="updateDate"/>
+    </resultMap>
+
+    <!-- 基础列 -->
+    <sql id="Base_Column_List">
+        tid, truck_no, driver_name, driver_phone, truck_plate, from_city, from_province,
+        to_city, to_province, capacity, available_count, departure_date, price_per_car,
+        status, memo, create_user, create_date, oper_user, update_date
+    </sql>
+
+    <!-- 根据出发城市查询物流板车 -->
+    <select id="findByFromCity" resultMap="BaseResultMap">
+        SELECT <include refid="Base_Column_List"/>
+        FROM logistics_truck
+        WHERE from_city = #{fromCity} AND status = 1
+        ORDER BY departure_date ASC
+    </select>
+
+    <!-- 根据目的城市查询物流板车 -->
+    <select id="findByToCity" resultMap="BaseResultMap">
+        SELECT <include refid="Base_Column_List"/>
+        FROM logistics_truck
+        WHERE to_city = #{toCity} AND status = 1
+        ORDER BY departure_date ASC
+    </select>
+
+    <!-- 根据出发日期范围查询物流板车 -->
+    <select id="findByDateRange" resultMap="BaseResultMap">
+        SELECT <include refid="Base_Column_List"/>
+        FROM logistics_truck
+        WHERE departure_date BETWEEN #{startDate} AND #{endDate} AND status = 1
+        ORDER BY departure_date ASC
+    </select>
+
+    <!-- 查询有剩余位置的物流板车 -->
+    <select id="findAvailable" resultMap="BaseResultMap">
+        SELECT <include refid="Base_Column_List"/>
+        FROM logistics_truck
+        WHERE available_count > 0 AND status = 1 AND departure_date >= CURDATE()
+        ORDER BY departure_date ASC
+    </select>
+
+</mapper>

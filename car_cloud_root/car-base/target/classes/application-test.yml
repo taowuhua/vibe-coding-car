@@ -1,0 +1,28 @@
+# =====================================================
+# Car Cloud - Base 基础业务服务
+# 测试环境配置 (test)
+# =====================================================
+
+server:
+  port: 9001
+
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    # 测试环境数据库（请根据实际地址修改）
+    url: jdbc:mysql://mysql-test.car.local:3306/car_cloud?useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true
+    username: car_test
+    password: ${DB_PASSWORD:test_password}
+
+eureka:
+  instance:
+    prefer-ip-address: true
+  client:
+    service-url:
+      defaultZone: http://eureka-test.car.local:8761/eureka/
+
+# 日志配置
+logging:
+  level:
+    root: INFO
+    com.car: INFO

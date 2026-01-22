@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.car.base.mapper.inquiry.InquiryMapper">
+
+    <!-- 通用结果映射 -->
+    <resultMap id="BaseResultMap" type="com.car.base.entity.inquiry.Inquiry">
+        <id column="tid" property="tid"/>
+        <result column="inquiry_no" property="inquiryNo"/>
+        <result column="car_id" property="carId"/>
+        <result column="user_id" property="userId"/>
+        <result column="expected_price" property="expectedPrice"/>
+        <result column="message" property="message"/>
+        <result column="reply_content" property="replyContent"/>
+        <result column="reply_price" property="replyPrice"/>
+        <result column="reply_time" property="replyTime"/>
+        <result column="status" property="status"/>
+        <result column="memo" property="memo"/>
+        <result column="create_user" property="createUser"/>
+        <result column="create_date" property="createDate"/>
+        <result column="oper_user" property="operUser"/>
+        <result column="update_date" property="updateDate"/>
+    </resultMap>
+
+    <!-- 基础列 -->
+    <sql id="Base_Column_List">
+        tid, inquiry_no, car_id, user_id, expected_price, message, reply_content, reply_price,
+        reply_time, status, memo, create_user, create_date, oper_user, update_date
+    </sql>
+
+    <!-- 根据用户ID查询询价记录 -->
+    <select id="findByUserId" resultMap="BaseResultMap">
+        SELECT <include refid="Base_Column_List"/>
+        FROM inquiry
+        WHERE user_id = #{userId}
+        ORDER BY create_date DESC
+    </select>
+
+    <!-- 根据车源ID查询询价记录 -->
+    <select id="findByCarId" resultMap="BaseResultMap">
+        SELECT <include refid="Base_Column_List"/>
+        FROM inquiry
+        WHERE car_id = #{carId}
+        ORDER BY create_date DESC
+    </select>
+
+    <!-- 查询待回复的询价记录 -->
+    <select id="findPending" resultMap="BaseResultMap">
+        SELECT <include refid="Base_Column_List"/>
+        FROM inquiry
+        WHERE status = 0
+        ORDER BY create_date ASC
+    </select>
+
+    <!-- 统计车源的询价数量 -->
+    <select id="countByCarId" resultType="int">
+        SELECT COUNT(*)
+        FROM inquiry
+        WHERE car_id = #{carId}
+    </select>
+
+</mapper>

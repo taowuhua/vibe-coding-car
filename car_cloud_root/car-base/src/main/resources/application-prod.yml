@@ -1,0 +1,28 @@
+# =====================================================
+# Car Cloud - Base 基础业务服务
+# 生产环境配置 (prod)
+# =====================================================
+
+server:
+  port: 9001
+
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    # 生产环境数据库（通过环境变量配置）
+    url: ${DB_URL:jdbc:mysql://mysql.car.com:3306/car_cloud?useSSL=true&serverTimezone=UTC&allowPublicKeyRetrieval=true}
+    username: ${DB_USERNAME:car_prod}
+    password: ${DB_PASSWORD:}
+
+eureka:
+  instance:
+    prefer-ip-address: true
+  client:
+    service-url:
+      defaultZone: ${EUREKA_SERVER:http://eureka.car.com:8761/eureka/}
+
+# 日志配置
+logging:
+  level:
+    root: WARN
+    com.car: WARN

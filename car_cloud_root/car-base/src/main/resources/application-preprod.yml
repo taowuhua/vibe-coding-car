@@ -1,0 +1,28 @@
+# =====================================================
+# Car Cloud - Base 基础业务服务
+# 预生产环境配置 (preprod)
+# =====================================================
+
+server:
+  port: 9001
+
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    # 预生产环境数据库（请根据实际地址修改）
+    url: jdbc:mysql://mysql-preprod.car.local:3306/car_cloud?useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true
+    username: car_preprod
+    password: ${DB_PASSWORD:}
+
+eureka:
+  instance:
+    prefer-ip-address: true
+  client:
+    service-url:
+      defaultZone: http://eureka-preprod.car.local:8761/eureka/
+
+# 日志配置
+logging:
+  level:
+    root: WARN
+    com.car: INFO

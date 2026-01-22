@@ -1,0 +1,22 @@
+# =====================================================
+# Car Cloud - Eureka 服务注册中心
+# 开发环境配置 (dev)
+# =====================================================
+
+server:
+  port: 8761
+
+eureka:
+  instance:
+    # 开发环境使用 localhost
+    hostname: localhost
+  client:
+    service-url:
+      defaultZone: http://${eureka.instance.hostname}:${server.port}/eureka/
+
+# 日志配置
+logging:
+  level:
+    root: INFO
+    com.netflix.eureka: DEBUG
+    com.netflix.discovery: DEBUG

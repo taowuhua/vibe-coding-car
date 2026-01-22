@@ -1,0 +1,27 @@
+# =====================================================
+# Car Cloud - Eureka 服务注册中心
+# 预生产环境配置 (preprod)
+# =====================================================
+
+server:
+  port: 8761
+
+eureka:
+  instance:
+    # 预生产环境主机名（请根据实际服务器地址修改）
+    hostname: eureka-preprod.car.local
+    # 使用 IP 地址注册
+    prefer-ip-address: true
+  client:
+    service-url:
+      defaultZone: http://${eureka.instance.hostname}:${server.port}/eureka/
+  server:
+    # 预生产环境开启自我保护
+    enable-self-preservation: true
+
+# 日志配置
+logging:
+  level:
+    root: WARN
+    com.netflix.eureka: WARN
+    com.netflix.discovery: WARN

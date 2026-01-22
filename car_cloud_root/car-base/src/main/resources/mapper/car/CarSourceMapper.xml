@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.car.base.mapper.car.CarSourceMapper">
+
+    <!-- 通用结果映射 -->
+    <resultMap id="BaseResultMap" type="com.car.base.entity.car.CarSource">
+        <id column="tid" property="tid"/>
+        <result column="car_no" property="carNo"/>
+        <result column="brand" property="brand"/>
+        <result column="model" property="model"/>
+        <result column="year_months" property="yearMonths"/>
+        <result column="mileage" property="mileage"/>
+        <result column="price" property="price"/>
+        <result column="city" property="city"/>
+        <result column="province" property="province"/>
+        <result column="color" property="color"/>
+        <result column="displacement" property="displacement"/>
+        <result column="gearbox" property="gearbox"/>
+        <result column="fuel_type" property="fuelType"/>
+        <result column="energy_type" property="energyType"/>
+        <result column="images" property="images"/>
+        <result column="description" property="description"/>
+        <result column="shop_id" property="shopId"/>
+        <result column="source_type" property="sourceType"/>
+        <result column="is_new_today" property="isNewToday"/>
+        <result column="status" property="status"/>
+        <result column="memo" property="memo"/>
+        <result column="create_user" property="createUser"/>
+        <result column="create_date" property="createDate"/>
+        <result column="oper_user" property="operUser"/>
+        <result column="update_date" property="updateDate"/>
+    </resultMap>
+
+    <!-- 基础列 -->
+    <sql id="Base_Column_List">
+        tid, car_no, brand, model, year_months, mileage, price, city, province, color,
+        displacement, gearbox, fuel_type, energy_type, images, description, shop_id,
+        source_type, is_new_today, status, memo, create_user, create_date, oper_user, update_date
+    </sql>
+
+    <!-- 根据品牌查询车源列表 -->
+    <select id="findByBrand" resultMap="BaseResultMap">
+        SELECT <include refid="Base_Column_List"/>
+        FROM car_source
+        WHERE brand = #{brand} AND status = 1
+        ORDER BY create_date DESC
+    </select>
+
+    <!-- 根据价格范围查询车源列表 -->
+    <select id="findByPriceRange" resultMap="BaseResultMap">
+        SELECT <include refid="Base_Column_List"/>
+        FROM car_source
+        WHERE price BETWEEN #{minPrice} AND #{maxPrice} AND status = 1
+        ORDER BY price ASC
+    </select>
+
+    <!-- 根据城市查询车源列表 -->
+    <select id="findByCity" resultMap="BaseResultMap">
+        SELECT <include refid="Base_Column_List"/>
+        FROM car_source
+        WHERE city = #{city} AND status = 1
+        ORDER BY create_date DESC
+    </select>
+
+    <!-- 查询今日上新车源 -->
+    <select id="findTodayNew" resultMap="BaseResultMap">
+        SELECT <include refid="Base_Column_List"/>
+        FROM car_source
+        WHERE is_new_today = 1 AND status = 1
+        ORDER BY create_date DESC
+    </select>
+
+    <!-- 查询秒杀车源 -->
+    <select id="findFlashSale" resultMap="BaseResultMap">
+        SELECT <include refid="Base_Column_List"/>
+        FROM car_source
+        WHERE source_type = 2 AND status = 1
+        ORDER BY create_date DESC
+    </select>
+
+    <!-- 查询新能源车源 -->
+    <select id="findNewEnergy" resultMap="BaseResultMap">
+        SELECT <include refid="Base_Column_List"/>
+        FROM car_source
+        WHERE energy_type = 1 AND status = 1
+        ORDER BY create_date DESC
+    </select>
+
+    <!-- 根据微店ID查询车源列表 -->
+    <select id="findByShopId" resultMap="BaseResultMap">
+        SELECT <include refid="Base_Column_List"/>
+        FROM car_source
+        WHERE shop_id = #{shopId} AND status = 1
+        ORDER BY create_date DESC
+    </select>
+
+</mapper>

@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.car.base.mapper.purchase.PurchaseDemandMapper">
+
+    <!-- 通用结果映射 -->
+    <resultMap id="BaseResultMap" type="com.car.base.entity.purchase.PurchaseDemand">
+        <id column="tid" property="tid"/>
+        <result column="demand_no" property="demandNo"/>
+        <result column="user_id" property="userId"/>
+        <result column="brand" property="brand"/>
+        <result column="model" property="model"/>
+        <result column="year_range" property="yearRange"/>
+        <result column="price_min" property="priceMin"/>
+        <result column="price_max" property="priceMax"/>
+        <result column="mileage_max" property="mileageMax"/>
+        <result column="city" property="city"/>
+        <result column="contact_name" property="contactName"/>
+        <result column="contact_phone" property="contactPhone"/>
+        <result column="description" property="description"/>
+        <result column="status" property="status"/>
+        <result column="memo" property="memo"/>
+        <result column="create_user" property="createUser"/>
+        <result column="create_date" property="createDate"/>
+        <result column="oper_user" property="operUser"/>
+        <result column="update_date" property="updateDate"/>
+    </resultMap>
+
+    <!-- 基础列 -->
+    <sql id="Base_Column_List">
+        tid, demand_no, user_id, brand, model, year_range, price_min, price_max, mileage_max,
+        city, contact_name, contact_phone, description, status, memo, create_user, create_date,
+        oper_user, update_date
+    </sql>
+
+    <!-- 根据用户ID查询求购需求 -->
+    <select id="findByUserId" resultMap="BaseResultMap">
+        SELECT <include refid="Base_Column_List"/>
+        FROM purchase_demand
+        WHERE user_id = #{userId}
+        ORDER BY create_date DESC
+    </select>
+
+    <!-- 查询进行中的求购需求 -->
+    <select id="findActive" resultMap="BaseResultMap">
+        SELECT <include refid="Base_Column_List"/>
+        FROM purchase_demand
+        WHERE status = 1
+        ORDER BY create_date DESC
+    </select>
+
+    <!-- 根据品牌查询求购需求 -->
+    <select id="findByBrand" resultMap="BaseResultMap">
+        SELECT <include refid="Base_Column_List"/>
+        FROM purchase_demand
+        WHERE brand = #{brand} AND status = 1
+        ORDER BY create_date DESC
+    </select>
+
+</mapper>

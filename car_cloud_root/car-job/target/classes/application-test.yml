@@ -1,0 +1,18 @@
+# =====================================================
+# Car Cloud - Job 定时任务服务
+# 测试环境配置 (test)
+# =====================================================
+
+server:
+  port: 9003
+
+eureka:
+  instance:
+    prefer-ip-address: true
+  client:
+    service-url:
+      defaultZone: http://eureka-test.car.local:8761/eureka/
+
+logging:
+  level:
+    root: INFO

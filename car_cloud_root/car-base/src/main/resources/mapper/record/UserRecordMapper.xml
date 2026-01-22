@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.car.base.mapper.record.UserRecordMapper">
+
+    <!-- 通用结果映射 -->
+    <resultMap id="BaseResultMap" type="com.car.base.entity.record.UserRecord">
+        <id column="tid" property="tid"/>
+        <result column="user_id" property="userId"/>
+        <result column="car_id" property="carId"/>
+        <result column="shop_id" property="shopId"/>
+        <result column="record_type" property="recordType"/>
+        <result column="status" property="status"/>
+        <result column="memo" property="memo"/>
+        <result column="create_user" property="createUser"/>
+        <result column="create_date" property="createDate"/>
+        <result column="oper_user" property="operUser"/>
+        <result column="update_date" property="updateDate"/>
+    </resultMap>
+
+    <!-- 基础列 -->
+    <sql id="Base_Column_List">
+        tid, user_id, car_id, shop_id, record_type, status, memo,
+        create_user, create_date, oper_user, update_date
+    </sql>
+
+    <!-- 查询用户的浏览记录 -->
+    <select id="findBrowseHistory" resultMap="BaseResultMap">
+        SELECT <include refid="Base_Column_List"/>
+        FROM user_record
+        WHERE user_id = #{userId} AND record_type = 1 AND status = 1
+        ORDER BY create_date DESC
+    </select>
+
+    <!-- 查询用户的收藏列表 -->
+    <select id="findFavorites" resultMap="BaseResultMap">
+        SELECT <include refid="Base_Column_List"/>
+        FROM user_record
+        WHERE user_id = #{userId} AND record_type = 2 AND status = 1
+        ORDER BY create_date DESC
+    </select>
+
+    <!-- 查询用户关注的微店 -->
+    <select id="findFollowedShops" resultMap="BaseResultMap">
+        SELECT <include refid="Base_Column_List"/>
+        FROM user_record
+        WHERE user_id = #{userId} AND record_type = 3 AND status = 1
+        ORDER BY create_date DESC
+    </select>
+
+    <!-- 检查是否已收藏 -->
+    <select id="checkFavorite" resultType="int">
+        SELECT COUNT(*)
+        FROM user_record
+        WHERE user_id = #{userId} AND car_id = #{carId} AND record_type = 2 AND status = 1
+    </select>
+
+    <!-- 删除收藏记录（逻辑删除） -->
+    <update id="removeFavorite">
+        UPDATE user_record
+        SET status = 0, update_date = NOW()
+        WHERE user_id = #{userId} AND car_id = #{carId} AND record_type = 2
+    </update>
+
+</mapper>
