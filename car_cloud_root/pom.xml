@@ -20,9 +20,7 @@
     <description>Car Web Microservices Root Project</description>
 
     <modules>
-        <module>car-eureka</module>
         <module>car-gateway</module>
-        <module>car-config</module>
         <module>car-base</module>
         <module>car-cars</module>
         <module>car-job</module>
@@ -31,6 +29,7 @@
     <properties>
         <java.version>17</java.version>
         <spring-cloud.version>2024.0.0</spring-cloud.version>
+        <spring-cloud-alibaba.version>2023.0.1.2</spring-cloud-alibaba.version>
         <mybatis-plus.version>3.5.9</mybatis-plus.version>
         <mysql.version>8.0.33</mysql.version>
         <jwt.version>0.11.5</jwt.version>
@@ -46,6 +45,15 @@
                 <groupId>org.springframework.cloud</groupId>
                 <artifactId>spring-cloud-dependencies</artifactId>
                 <version>${spring-cloud.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+
+            <!-- Spring Cloud Alibaba BOM -->
+            <dependency>
+                <groupId>com.alibaba.cloud</groupId>
+                <artifactId>spring-cloud-alibaba-dependencies</artifactId>
+                <version>${spring-cloud-alibaba.version}</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>

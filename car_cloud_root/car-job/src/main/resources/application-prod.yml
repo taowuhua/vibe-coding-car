@@ -6,12 +6,15 @@
 server:
   port: 9003
 
-eureka:
-  instance:
-    prefer-ip-address: true
-  client:
-    service-url:
-      defaultZone: ${EUREKA_SERVER:http://eureka.car.com:8761/eureka/}
+# Nacos 服务发现配置
+spring:
+  cloud:
+    nacos:
+      discovery:
+        server-addr: ${NACOS_SERVER:nacos.car.com:8848}
+        namespace: prod
+        username: ${NACOS_USERNAME:nacos}
+        password: ${NACOS_PASSWORD:nacos}
 
 logging:
   level:

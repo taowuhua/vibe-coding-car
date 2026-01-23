@@ -6,12 +6,13 @@
 server:
   port: 9003
 
-eureka:
-  instance:
-    prefer-ip-address: true
-  client:
-    service-url:
-      defaultZone: http://localhost:8761/eureka/
+# Nacos 服务发现配置
+spring:
+  cloud:
+    nacos:
+      discovery:
+        server-addr: localhost:8848
+        namespace: car_dev
 
 logging:
   level:

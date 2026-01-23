@@ -13,12 +13,13 @@ spring:
     username: car_preprod
     password: ${DB_PASSWORD:}
 
-eureka:
-  instance:
-    prefer-ip-address: true
-  client:
-    service-url:
-      defaultZone: http://eureka-preprod.car.local:8761/eureka/
+# Nacos 服务发现配置
+spring:
+  cloud:
+    nacos:
+      discovery:
+        server-addr: ${NACOS_SERVER:nacos-preprod.car.local:8848}
+        namespace: preprod
 
 logging:
   level:

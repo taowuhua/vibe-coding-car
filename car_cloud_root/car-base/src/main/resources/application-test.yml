@@ -14,12 +14,12 @@ spring:
     username: car_test
     password: ${DB_PASSWORD:test_password}
 
-eureka:
-  instance:
-    prefer-ip-address: true
-  client:
-    service-url:
-      defaultZone: http://eureka-test.car.local:8761/eureka/
+# Nacos 服务发现配置
+  cloud:
+    nacos:
+      discovery:
+        server-addr: ${NACOS_SERVER:nacos-test.car.local:8848}
+        namespace: test
 
 # 日志配置
 logging:
