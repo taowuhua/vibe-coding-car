@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 
+    求购车型明细 Mapper XML
+    @author system
+    @date 2026-01-25
+-->
+<mapper namespace="com.car.base.mapper.purchase.CarPurchaseDemandDetailMapper">
+
+    <!-- 基础结果映射 -->
+    <resultMap id="BaseResultMap" type="com.car.base.entity.purchase.CarPurchaseDemandDetail">
+        <id column="tid" property="tid" jdbcType="BIGINT"/>
+        <result column="demand_id" property="demandId" jdbcType="BIGINT"/>
+        <result column="brand" property="brand" jdbcType="VARCHAR"/>
+        <result column="model" property="model" jdbcType="VARCHAR"/>
+        <result column="year_start" property="yearStart" jdbcType="INTEGER"/>
+        <result column="year_end" property="yearEnd" jdbcType="INTEGER"/>
+        <result column="status" property="status" jdbcType="TINYINT"/>
+        <result column="memo" property="memo" jdbcType="VARCHAR"/>
+        <result column="create_user" property="createUser" jdbcType="VARCHAR"/>
+        <result column="create_date" property="createDate" jdbcType="TIMESTAMP"/>
+        <result column="oper_user" property="operUser" jdbcType="VARCHAR"/>
+        <result column="update_date" property="updateDate" jdbcType="TIMESTAMP"/>
+    </resultMap>
+
+    <!-- 基础字段列表 -->
+    <sql id="Base_Column_List">
+        tid, demand_id, brand, model, year_start, year_end,
+        status, memo, create_user, create_date, oper_user, update_date
+    </sql>
+
+    <!-- 新增 -->
+    <insert id="insert" parameterType="com.car.base.entity.purchase.CarPurchaseDemandDetail" 
+            useGeneratedKeys="true" keyProperty="tid">
+        INSERT INTO car_purchase_demand_detail (
+            demand_id, brand, model, year_start, year_end,
+            status, memo, create_user, create_date, oper_user, update_date
+        ) VALUES (
+            #{demandId}, #{brand}, #{model}, #{yearStart}, #{yearEnd},
+            IFNULL(#{status}, 1), #{memo}, #{createUser}, NOW(), #{operUser}, NOW()
+        )
+    </insert>
+
+    <!-- 批量新增 -->
+    <insert id="batchInsert" parameterType="java.util.List">
+        INSERT INTO car_purchase_demand_detail (
+            demand_id, brand, model, year_start, year_end,
+            status, memo, create_user, create_date, oper_user, update_date
+        ) VALUES 
+        <foreach collection="list" item="item" separator=",">
+            (
+                #{item.demandId}, #{item.brand}, #{item.model}, #{item.yearStart}, #{item.yearEnd},
+                IFNULL(#{item.status}, 1), #{item.memo}, #{item.createUser}, NOW(), #{item.operUser}, NOW()
+            )
+        </foreach>
+    </insert>
+
+    <!-- 更新 -->
+    <update id="update" parameterType="com.car.base.entity.purchase.CarPurchaseDemandDetail">
+        UPDATE car_purchase_demand_detail
+        <set>
+            <if test="demandId != null">demand_id = #{demandId},</if>
+            <if test="brand != null">brand = #{brand},</if>
+            <if test="model != null">model = #{model},</if>
+            <if test="yearStart != null">year_start = #{yearStart},</if>
+            <if test="yearEnd != null">year_end = #{yearEnd},</if>
+            <if test="status != null">status = #{status},</if>
+            <if test="memo != null">memo = #{memo},</if>
+            <if test="operUser != null">oper_user = #{operUser},</if>
+            update_date = NOW()
+        </set>
+        WHERE tid = #{tid}
+    </update>
+
+    <!-- 根据ID删除 -->
+    <delete id="deleteById">
+        DELETE FROM car_purchase_demand_detail WHERE tid = #{tid}
+    </delete>
+
+    <!-- 根据求购信息ID删除所有明细 -->
+    <delete id="deleteByDemandId">
+        DELETE FROM car_purchase_demand_detail WHERE demand_id = #{demandId}
+    </delete>
+
+    <!-- 根据ID查询 -->
+    <select id="selectById" parameterType="java.lang.Long" resultMap="BaseResultMap">
+        SELECT <include refid="Base_Column_List" />
+        FROM car_purchase_demand_detail
+        WHERE tid = #{tid}
+    </select>
+
+    <!-- 根据求购信息ID查询明细列表 -->
+    <select id="selectByDemandId" parameterType="java.lang.Long" resultMap="BaseResultMap">
+        SELECT <include refid="Base_Column_List" />
+        FROM car_purchase_demand_detail
+        WHERE demand_id = #{demandId} AND status = 1
+        ORDER BY tid ASC
+    </select>
+
+</mapper>

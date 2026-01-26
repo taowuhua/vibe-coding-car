@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 
+    求购评论 Mapper XML
+    @author system
+    @date 2026-01-25
+-->
+<mapper namespace="com.car.base.mapper.purchase.CarPurchaseCommentMapper">
+
+    <!-- 基础结果映射 -->
+    <resultMap id="BaseResultMap" type="com.car.base.entity.purchase.CarPurchaseComment">
+        <id column="tid" property="tid" jdbcType="BIGINT"/>
+        <result column="demand_id" property="demandId" jdbcType="BIGINT"/>
+        <result column="user_id" property="userId" jdbcType="BIGINT"/>
+        <result column="parent_id" property="parentId" jdbcType="BIGINT"/>
+        <result column="content" property="content" jdbcType="VARCHAR"/>
+        <result column="status" property="status" jdbcType="TINYINT"/>
+        <result column="memo" property="memo" jdbcType="VARCHAR"/>
+        <result column="create_user" property="createUser" jdbcType="VARCHAR"/>
+        <result column="create_date" property="createDate" jdbcType="TIMESTAMP"/>
+        <result column="oper_user" property="operUser" jdbcType="VARCHAR"/>
+        <result column="update_date" property="updateDate" jdbcType="TIMESTAMP"/>
+    </resultMap>
+
+    <!-- VO 结果映射（扩展用户信息） -->
+    <resultMap id="VoResultMap" type="com.car.base.entity.purchase.vo.CarPurchaseCommentVO" extends="BaseResultMap">
+        <result column="nickname" property="nickname" jdbcType="VARCHAR"/>
+        <result column="avatar" property="avatar" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <!-- 基础字段列表 -->
+    <sql id="Base_Column_List">
+        tid, demand_id, user_id, parent_id, content,
+        status, memo, create_user, create_date, oper_user, update_date
+    </sql>
+
+    <!-- 新增 -->
+    <insert id="insert" parameterType="com.car.base.entity.purchase.CarPurchaseComment" 
+            useGeneratedKeys="true" keyProperty="tid">
+        INSERT INTO car_purchase_comment (
+            demand_id, user_id, parent_id, content,
+            status, memo, create_user, create_date, oper_user, update_date
+        ) VALUES (
+            #{demandId}, #{userId}, IFNULL(#{parentId}, 0), #{content},
+            IFNULL(#{status}, 1), #{memo}, #{createUser}, NOW(), #{operUser}, NOW()
+        )
+    </insert>
+
+    <!-- 更新 -->
+    <update id="update" parameterType="com.car.base.entity.purchase.CarPurchaseComment">
+        UPDATE car_purchase_comment
+        <set>
+            <if test="content != null">content = #{content},</if>
+            <if test="status != null">status = #{status},</if>
+            <if test="memo != null">memo = #{memo},</if>
+            <if test="operUser != null">oper_user = #{operUser},</if>
+            update_date = NOW()
+        </set>
+        WHERE tid = #{tid}
+    </update>
+
+    <!-- 逻辑删除 -->
+    <update id="deleteById">
+        UPDATE car_purchase_comment SET status = 0, update_date = NOW() WHERE tid = #{tid}
+    </update>
+
+    <!-- 根据ID查询 -->
+    <select id="selectById" parameterType="java.lang.Long" resultMap="BaseResultMap">
+        SELECT <include refid="Base_Column_List" />
+        FROM car_purchase_comment
+        WHERE tid = #{tid}
+    </select>
+
+    <!-- 查询列表 -->
+    <select id="selectList" parameterType="com.car.base.entity.purchase.CarPurchaseComment" resultMap="BaseResultMap">
+        SELECT <include refid="Base_Column_List" />
+        FROM car_purchase_comment
+        <where>
+            <if test="demandId != null">AND demand_id = #{demandId}</if>
+            <if test="userId != null">AND user_id = #{userId}</if>
+            <if test="parentId != null">AND parent_id = #{parentId}</if>
+            <if test="status != null">AND status = #{status}</if>
+            <if test="status == null">AND status = 1</if>
+        </where>
+        ORDER BY create_date DESC
+    </select>
+
+    <!-- 查询 VO 列表 -->
+    <select id="selectVoListByDemandId" parameterType="java.lang.Long" resultMap="VoResultMap">
+        SELECT 
+            c.*,
+            u.username AS nickname,
+            '' AS avatar
+        FROM car_purchase_comment c
+        LEFT JOIN users u ON c.user_id = u.id
+        WHERE c.demand_id = #{demandId} AND c.status = 1
+        ORDER BY c.create_date ASC
+    </select>
+
+    <!-- 统计评论数量 -->
+    <select id="countByDemandId" parameterType="java.lang.Long" resultType="int">
+        SELECT COUNT(*) FROM car_purchase_comment WHERE demand_id = #{demandId} AND status = 1
+    </select>
+
+</mapper>

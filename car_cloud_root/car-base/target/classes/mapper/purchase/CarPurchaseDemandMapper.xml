@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 
+    求购信息 Mapper XML
+    @author system
+    @date 2026-01-25
+-->
+<mapper namespace="com.car.base.mapper.purchase.CarPurchaseDemandMapper">
+
+    <!-- 基础结果映射 -->
+    <resultMap id="BaseResultMap" type="com.car.base.entity.purchase.CarPurchaseDemand">
+        <id column="tid" property="tid" jdbcType="BIGINT"/>
+        <result column="user_id" property="userId" jdbcType="BIGINT"/>
+        <result column="shop_name" property="shopName" jdbcType="VARCHAR"/>
+        <result column="province" property="province" jdbcType="VARCHAR"/>
+        <result column="city" property="city" jdbcType="VARCHAR"/>
+        <result column="description" property="description" jdbcType="VARCHAR"/>
+        <result column="contact_phone" property="contactPhone" jdbcType="VARCHAR"/>
+        <result column="contact_wechat" property="contactWechat" jdbcType="VARCHAR"/>
+        <result column="view_count" property="viewCount" jdbcType="INTEGER"/>
+        <result column="comment_count" property="commentCount" jdbcType="INTEGER"/>
+        <result column="status" property="status" jdbcType="TINYINT"/>
+        <result column="memo" property="memo" jdbcType="VARCHAR"/>
+        <result column="create_user" property="createUser" jdbcType="VARCHAR"/>
+        <result column="create_date" property="createDate" jdbcType="TIMESTAMP"/>
+        <result column="oper_user" property="operUser" jdbcType="VARCHAR"/>
+        <result column="update_date" property="updateDate" jdbcType="TIMESTAMP"/>
+    </resultMap>
+
+    <!-- VO 结果映射（扩展用户信息） -->
+    <resultMap id="VoResultMap" type="com.car.base.entity.purchase.vo.CarPurchaseDemandVO" extends="BaseResultMap">
+        <result column="nickname" property="nickname" jdbcType="VARCHAR"/>
+        <result column="avatar" property="avatar" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <!-- 基础字段列表 -->
+    <sql id="Base_Column_List">
+        tid, user_id, shop_name, province, city, description, contact_phone, contact_wechat,
+        view_count, comment_count, status, memo, create_user, create_date, oper_user, update_date
+    </sql>
+
+    <!-- 新增 -->
+    <insert id="insert" parameterType="com.car.base.entity.purchase.CarPurchaseDemand" 
+            useGeneratedKeys="true" keyProperty="tid">
+        INSERT INTO car_purchase_demand (
+            user_id, shop_name, province, city, description, contact_phone, contact_wechat,
+            view_count, comment_count, status, memo, create_user, create_date, oper_user, update_date
+        ) VALUES (
+            #{userId}, #{shopName}, #{province}, #{city}, #{description}, #{contactPhone}, #{contactWechat},
+            IFNULL(#{viewCount}, 0), IFNULL(#{commentCount}, 0), IFNULL(#{status}, 1), 
+            #{memo}, #{createUser}, NOW(), #{operUser}, NOW()
+        )
+    </insert>
+
+    <!-- 更新 -->
+    <update id="update" parameterType="com.car.base.entity.purchase.CarPurchaseDemand">
+        UPDATE car_purchase_demand
+        <set>
+            <if test="userId != null">user_id = #{userId},</if>
+            <if test="shopName != null">shop_name = #{shopName},</if>
+            <if test="province != null">province = #{province},</if>
+            <if test="city != null">city = #{city},</if>
+            <if test="description != null">description = #{description},</if>
+            <if test="contactPhone != null">contact_phone = #{contactPhone},</if>
+            <if test="contactWechat != null">contact_wechat = #{contactWechat},</if>
+            <if test="viewCount != null">view_count = #{viewCount},</if>
+            <if test="commentCount != null">comment_count = #{commentCount},</if>
+            <if test="status != null">status = #{status},</if>
+            <if test="memo != null">memo = #{memo},</if>
+            <if test="operUser != null">oper_user = #{operUser},</if>
+            update_date = NOW()
+        </set>
+        WHERE tid = #{tid}
+    </update>
+
+    <!-- 逻辑删除 -->
+    <update id="deleteById">
+        UPDATE car_purchase_demand SET status = 0, update_date = NOW() WHERE tid = #{tid}
+    </update>
+
+    <!-- 根据ID查询 -->
+    <select id="selectById" parameterType="java.lang.Long" resultMap="BaseResultMap">
+        SELECT <include refid="Base_Column_List" />
+        FROM car_purchase_demand
+        WHERE tid = #{tid}
+    </select>
+
+    <!-- 查询列表 -->
+    <select id="selectList" parameterType="com.car.base.entity.purchase.CarPurchaseDemand" resultMap="BaseResultMap">
+        SELECT <include refid="Base_Column_List" />
+        FROM car_purchase_demand
+        <where>
+            <!-- 默认只查询启用状态 -->
+            <if test="status != null">AND status = #{status}</if>
+            <if test="status == null">AND status = 1</if>
+            <if test="userId != null">AND user_id = #{userId}</if>
+            <if test="city != null and city != ''">AND city = #{city}</if>
+            <if test="province != null and province != ''">AND province = #{province}</if>
+            <if test="shopName != null and shopName != ''">AND shop_name LIKE CONCAT('%', #{shopName}, '%')</if>
+            <if test="description != null and description != ''">AND description LIKE CONCAT('%', #{description}, '%')</if>
+        </where>
+        ORDER BY create_date DESC
+    </select>
+
+    <!-- 查询 VO 列表 -->
+    <select id="selectVoList" parameterType="com.car.base.entity.purchase.CarPurchaseDemand" resultMap="VoResultMap">
+        SELECT 
+            d.tid, d.user_id, d.shop_name, d.province, d.city, d.description, 
+            d.contact_phone, d.contact_wechat, d.view_count, d.comment_count, 
+            d.status, d.memo, d.create_user, d.create_date, d.oper_user, d.update_date,
+            IFNULL(u.username, d.shop_name) AS nickname,
+            '' AS avatar
+        FROM car_purchase_demand d
+        LEFT JOIN users u ON d.user_id = u.id
+        <where>
+            <if test="status != null">AND d.status = #{status}</if>
+            <if test="status == null">AND d.status = 1</if>
+            <if test="userId != null">AND d.user_id = #{userId}</if>
+            <if test="city != null and city != ''">AND d.city = #{city}</if>
+            <if test="province != null and province != ''">AND d.province = #{province}</if>
+            <if test="shopName != null and shopName != ''">AND d.shop_name LIKE CONCAT('%', #{shopName}, '%')</if>
+            <if test="description != null and description != ''">AND d.description LIKE CONCAT('%', #{description}, '%')</if>
+        </where>
+        ORDER BY d.create_date DESC
+    </select>
+
+    <!-- 查询用户的求购列表 -->
+    <select id="selectByUserId" parameterType="java.lang.Long" resultMap="BaseResultMap">
+        SELECT <include refid="Base_Column_List" />
+        FROM car_purchase_demand
+        WHERE user_id = #{userId} AND status != 0
+        ORDER BY create_date DESC
+    </select>
+
+    <!-- 增加浏览次数 -->
+    <update id="incrementViewCount">
+        UPDATE car_purchase_demand SET view_count = view_count + 1 WHERE tid = #{tid}
+    </update>
+
+    <!-- 增加评论数量 -->
+    <update id="incrementCommentCount">
+        UPDATE car_purchase_demand SET comment_count = comment_count + #{count} WHERE tid = #{tid}
+    </update>
+
+</mapper>
